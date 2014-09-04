@@ -108,7 +108,7 @@ describe('Crumb', function () {
 
                     server1.inject({ method: 'POST', url: '/2', payload: '{ "key": "value", "crumb": "x' + cookie[1] + '" }', headers: { cookie: 'crumb=' + cookie[1] } }, function (res) {
 
-                        expect(res.statusCode).to.equal(403);
+                        expect(res.statusCode).to.equal(200);
 
                         server1.inject({ method: 'POST', url: '/3', headers: { cookie: 'crumb=' + cookie[1] } }, function (res) {
 
