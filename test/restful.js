@@ -27,11 +27,7 @@ describe('Crumb', function () {
             views: {
                 path: __dirname + '/templates',
                 engines: {
-<<<<<<< HEAD
-                    html: 'handlebars'
-=======
                     html: require('handlebars')
->>>>>>> upstream/master
                 }
             }
         };
@@ -40,72 +36,18 @@ describe('Crumb', function () {
 
         server.route([
             {
-<<<<<<< HEAD
-                method: 'GET', path: '/1', config: { plugins: { crumb: false } }, handler: function () {
-
-                    expect(this.plugins.crumb).to.exist;
-                    expect(this.server.plugins.crumb.generate).to.exist;
-
-                    return this.reply.view('index', {
-=======
                 method: 'GET', path: '/1', handler: function (request, reply) {
 
                     expect(request.plugins.crumb).to.exist;
                     expect(request.server.plugins.crumb.generate).to.exist;
 
                     return reply.view('index', {
->>>>>>> upstream/master
                         title: 'test',
                         message: 'hi'
                     });
                 }
             },
             {
-<<<<<<< HEAD
-                method: 'POST', path: '/2', handler: function () {
-
-                    expect(this.payload).to.deep.equal({ key: 'value' });
-                    return this.reply('valid');
-                }
-            },
-            {
-                method: 'POST', path: '/3', config: { payload: 'stream' }, handler: function () {
-
-                    return this.reply('never');
-                }
-            },
-            {
-                method: 'PUT', path: '/4', handler: function () {
-
-                    expect(this.payload).to.deep.equal({ key: 'value' });
-                    return this.reply('valid');
-                }
-            },
-            {
-                method: 'PATCH', path: '/5', handler: function () {
-
-                    expect(this.payload).to.deep.equal({ key: 'value' });
-                    return this.reply('valid');
-                }
-            },
-            {
-                method: 'DELETE', path: '/6', handler: function () {
-
-                    return this.reply('valid');
-                }
-            },
-            {
-                method: 'POST', path: '/7', config: { plugins: { crumb: false } }, handler: function () {
-
-                    expect(this.payload).to.deep.equal({ key: 'value' });
-                    return this.reply('valid');
-                }
-            },
-
-        ]);
-
-        server.pack.allow({ ext: true }).require('../', { restful: true, cookieOptions: { isSecure: true } }, function (err) {
-=======
                 method: 'POST', path: '/2', handler: function (request, reply) {
 
                     expect(request.payload).to.deep.equal({ key: 'value' });
@@ -156,7 +98,6 @@ describe('Crumb', function () {
         ]);
 
         server.pack.register({plugin: require('../'), options: { restful: true, cookieOptions: { isSecure: true } } }, function (err) {
->>>>>>> upstream/master
 
             expect(err).to.not.exist;
             server.inject({ method: 'GET', url: '/1' }, function (res) {
@@ -216,9 +157,6 @@ describe('Crumb', function () {
                                                     server.inject({ method: 'POST', url: '/7', payload: '{ "key": "value" }' }, function (res) {
 
                                                         expect(res.result).to.equal('valid');
-<<<<<<< HEAD
-                                                        done();
-=======
 
                                                         var payload = { key: 'value', crumb: cookie[1] };
 
@@ -228,7 +166,6 @@ describe('Crumb', function () {
                                                             expect(res.result).to.equal('valid');
                                                             done();
                                                         });
->>>>>>> upstream/master
                                                     });
                                                 });
                                             });
@@ -243,5 +180,4 @@ describe('Crumb', function () {
         });
     });
 });
-
 
